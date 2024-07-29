@@ -1,0 +1,29 @@
+<div class="max-w-3xl mx-auto p-4 relative" @fadeInOut>
+  <a routerLink="/products"
+    class="absolute top-0 left-0 flex items-center text-blueviolet hover:text-violet-400 transition mt-4 ml-2">
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="h-6 w-6 mr-1">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+    </svg>
+  </a>
+  <h2 class="text-2xl font-bold mb-4 text-center">Create New Product</h2>
+  <form (ngSubmit)="addProduct()" class="space-y-4">
+    <div>
+      <label for="product_name" class="block text-sm font-medium text-gray-700">Product Name:</label>
+      <input type="text" id="product_name" [(ngModel)]="product.product_name" name="product_name" required
+             class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" #productName="ngModel" />
+    </div>
+    <div *ngIf="productName.invalid && (productName.dirty || productName.touched)" class="text-red-600 text-sm">
+      Product name is required.
+    </div>
+    <div>
+      <label for="rowNum" class="block text-sm font-medium text-gray-700">Row Number:</label>
+      <input id="rowNum" type="number" [value]="product.row_num" readonly (click)="openRowNumSelector()"
+             class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm cursor-pointer" />
+    </div>
+    <div class="text-center">
+      <button type="submit" [disabled]="productName.invalid"  class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-700 transition">
+        Create Product
+      </button>
+    </div>
+  </form>
+</div>

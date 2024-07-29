@@ -1,0 +1,21 @@
+<div class="bg-blueviolet p-4 text-white relative">
+  <div class="flex justify-between items-center">
+    <h2 class="m-0 text-lg">Select Row</h2>
+    <button class="text-white text-2xl cursor-pointer hover:bg-darkmagenta" (click)="close()">✖</button>
+  </div>
+  <div class="relative mt-4">
+    <div class="max-h-60 overflow-y-scroll p-2 text-center bg-blueviolet relative">
+      <div *ngFor="let num of rowNumbers"
+           (click)="selectRowNum(num)"
+           [ngClass]="{
+             'p-2 cursor-pointer text-lg transition-all': true,
+             'bg-indigo-500 text-white font-bold': selectedRowNum === num,
+             'text-transparent cursor-not-allowed': num < minSelectableNumber || num > maxSelectableNumber,
+             'hover:bg-violet-400': selectedRowNum !== num && num >= minSelectableNumber && num <= maxSelectableNumber
+           }">
+        {{ num }}
+      </div>
+    </div>
+    <div class="fade-overlay"></div>
+  </div>
+</div>
