@@ -6,12 +6,15 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { trigger, transition, style, animate, query, stagger } from '@angular/animations';
+import { SidebarComponent } from "../side-bar/side-bar.component";
+import { SearchBarComponent } from "../search-bar/search-bar.component";
+import { ProductTableComponent } from "../product-table/product-table.component";
 
 
 @Component({
   selector: 'app-product-list',
   standalone: true,
-  imports: [FormsModule, CommonModule, RouterModule],
+  imports: [FormsModule, CommonModule, RouterModule, SidebarComponent, SearchBarComponent, ProductTableComponent],
   templateUrl: './product-list.component.html',
   styleUrl: './product-list.component.css',
   animations: [

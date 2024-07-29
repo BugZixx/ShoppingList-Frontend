@@ -1,0 +1,20 @@
+<!-- Three Lines Button / X Button -->
+<div class="absolute top-4 right-6 z-50">
+    <button (click)="toggleSidebar()" class="text-gray-600 hover:text-gray-900 transition focus:outline-none">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path *ngIf="!isSidebarOpen" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        <path *ngIf="isSidebarOpen" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </button>
+  </div>
+  
+  <!-- Side-Bar -->
+  <div class="absolute top-10 right-4 bg-white shadow-lg border border-gray-300 rounded-lg z-40 transition-opacity transform"
+    [ngClass]="{ 'opacity-0': !isSidebarOpen, 'opacity-100': isSidebarOpen }"
+    style="height: auto; width: 200px;">
+    <div class="p-4">
+      <button (click)="selectAll()" [disabled]="!isSidebarOpen" class="block text-green-500 hover:text-green-700 py-2">Select All</button>
+      <button (click)="deselectAll()" [disabled]="!isSidebarOpen" class="block text-red-500 hover:text-red-700 py-2">Deselect All</button>
+    </div>
+  </div>
+  
