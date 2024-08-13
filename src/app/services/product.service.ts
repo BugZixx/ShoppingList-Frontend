@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Product } from '../models/product';
 
@@ -19,6 +19,11 @@ export class ProductService {
   getProduct(id: number): Observable<Product> {
     const url = `${this.apiUrl}/${id}`;
     return this.http.get<Product>(url);
+  }
+
+  searchProductsByShopName(shop_name: string): Observable<Product[]> {
+    const params = new HttpParams().set('shop_name', shop_name);
+    return this.http.get<Product[]>(`${this.apiUrl}/shop`, { params });
   }
 
   addProduct(product: Product): Observable<Product> {

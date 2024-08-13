@@ -3,4 +3,5 @@ export interface Product {
     row_num: number;
     checked: boolean;
     product_name: string;
+    shop_id: number;
 }

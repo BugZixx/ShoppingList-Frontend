@@ -2,18 +2,19 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { ProductService } from '../services/product.service';
 import { Product } from '../models/product';
-import { FormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation-dialog.component';
 import { MatBottomSheet, MatBottomSheetModule } from '@angular/material/bottom-sheet';
 import { RowNumSelectorComponent } from '../row-num-selector/row-num-selector.component';
 import { animate, style, transition, trigger } from '@angular/animations';
+import { ShopSelectorComponent } from "../shop-selector/shop-selector.component";
 
 @Component({
   selector: 'app-product-edit',
   standalone: true,
-  imports: [FormsModule, CommonModule, RouterModule, MatDialogModule, MatBottomSheetModule],
+  imports: [FormsModule, CommonModule, RouterModule, MatDialogModule, MatBottomSheetModule, ShopSelectorComponent],
   templateUrl: './product-edit.component.html',
   styleUrl: './product-edit.component.css',
   animations: [
@@ -31,21 +32,37 @@ import { animate, style, transition, trigger } from '@angular/animations';
 })
 
 export class ProductEditComponent implements OnInit {
-  product: Product = { product_id: 0, product_name: '', checked: false, row_num: 0 };
+  productForm: FormGroup;
+  selectedShopId: number | null = null;
+  product: Product = {
+    product_id: 0, product_name: '', checked: false, row_num: 0, shop_id: 0
+  };
 
   constructor(
+    private fb: FormBuilder,
     private route: ActivatedRoute,
     private productService: ProductService,
     private router: Router,
     private dialog: MatDialog,
     private bottomSheet: MatBottomSheet
-  ) { }
+  ) {
+    this.productForm = this.fb.group({
+      product_name: [''],
+      row_num: [''],
+      shop: [null]
+    });
+  }
 
   ngOnInit(): void {
     const id = Number(this.route.snapshot.paramMap.get('id'));
     this.productService.getProduct(id).subscribe(product => {
       this.product = product;
     });
+  }
+
+  onShopChanged(shopId: number | null): void {
+    this.selectedShopId = shopId;
+    this.productForm.patchValue({ shop: shopId });
   }
 
   updateProduct(): void {

@@ -1,0 +1,7 @@
+<div>
+      <label for="shop">Shop</label>
+      <select id="shop" formControlName="shop">
+        <option value="">Select a shop</option>
+        <option *ngFor="let shop of shops" [value]="shop.shop_id">{{ shop.shop_name }}</option>
+      </select>
+    </div>
